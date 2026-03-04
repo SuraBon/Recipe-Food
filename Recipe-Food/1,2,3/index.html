@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Page</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section class="recipe-section">
+    <div class="header">
+        <h2 class="title-main">RECOMMENDED</h2>
+        <p class="title-sub italic">Recipes</p>
+    </div>
+    
+    <div class="cards-container">
+        
+        <article class="recipe-card" onclick="openModal('salad')" >
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c" alt="Salad">
+            </div>
+            <div class="card-content">
+                <h3 class="recipe-name">Salad</h3>
+                <p class="recipe-info">20 mins | 4 servings</p>
+            </div>
+        </article>
+        
+        <article class="recipe-card" onclick="openModal('burger')" >
+            <div class="card-image">
+                <img src="RedDot_Burger.jpg" alt="Burger">
+            </div>
+            <div class="card-content">
+                <h3 class="recipe-name">RED DOT BURGER</h3>
+                <p class="recipe-info">15 mins | 1 serving</p>
+            </div>
+        </article>
+        
+        <article class="recipe-card" onclick="openModal('chicken fried')" >
+            <div class="card-image">
+                <img src="chicken fried.webp" alt="chicken fried"> 
+            </div>
+            <div class="card-content">
+                <h3 class="recipe-name">CHICKEN FRIED</h3>
+                <p class="recipe-info">10 mins | 2 servings</p>
+            </div>
+        </article>
+
+        <article class="recipe-card" onclick="openModal('steak')" >
+            <div class="card-image">
+                <img src="steak.jpg" alt="steak"> 
+            </div>
+            <div class="card-content">
+                <h3 class="recipe-name">STEAK</h3>
+                <p class="recipe-info">10 mins | 2 servings</p>
+            </div>
+        </article>
+
+        <article class="recipe-card" onclick="openModal('pie')" >
+            <div class="card-image">
+                <img src="pie.jpg" alt="pie"> 
+            </div>
+            <div class="card-content">
+                <h3 class="recipe-name">PIE</h3>
+                <p class="recipe-info">10 mins | 2 servings</p>
+            </div>
+        </article>
+
+        <article class="recipe-card" onclick="openModal('pizza')" >
+            <div class="card-image">
+                <img src="pizza.jpg" alt="Pizza"> 
+            </div>
+            <div class="card-content">
+                <h3 class="recipe-name">PIZZA</h3>
+                <p class="recipe-info">10 mins | 2 servings</p>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+
+<div id="recipeModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2 id="modal-title" style="color: #c42127;"></h2>
+        <h3 id="modal-subtitle"></h3> 
+        <ul id="modal-ingredients"></ul>
+    </div>
+</div>
+
+<script>
+const recipeData = {
+    'thang': {
+        title: 'THANG NOODLE',
+        ingredients: [
+            'เส้นก๋วยเตี๋ยว 200 กรัม',
+            'เนื้อหมูสไลด์ 150 กรัม',
+            'ผักสดตามชอบ',
+            'น้ำซุปกระดูกหมู'
+        ]
+    },
+    'burger': {
+        title: 'RED DOT BURGER',
+        ingredients: [
+            'ขนมปังเบอร์เกอร์',
+            'เนื้อบด 200 กรัม',
+            'ชีส 1 แผ่น',
+            'มะเขือเทศและผักกาดหอม',
+            'ซอสสูตรพิเศษ'
+        ]
+    },
+    'salad': {
+        title: 'CORN SPICY SALAD',
+        ingredients: [
+            'ข้าวโพดหวาน',
+            'มะเขือเทศสีดา',
+            'ถั่วฝักยาว',
+            'น้ำปลาร้าต้มสุก',
+            'พริกและกระเทียม'
+        ]
+    },
+    'chicken fried': {
+        title: 'CHICKEN FRIED',
+        ingredients: [
+            'เนื้อไก่ 200 กรัม',
+            'แป้ง breadcrumbs 100 กรัม',
+            'น้ำมันสำหรับทอด',
+            'ซอสสูตรพิเศษ'
+        ]
+    },
+    'steak': {
+        title: 'STEAK',
+        ingredients: [
+            'เนื้อสันใน 200 กรัม',
+            'น้ำมันสำหรับอบ',
+            'เกลือและพริกไทย',
+            'ซอสสูตรพิเศษ'
+        ]
+    },
+    'pie': {
+        title: 'PIE',
+        ingredients: [
+            'แป้งพาย 200 กรัม',
+            'ไส้ตามชอบ (เช่น เนื้อ, ผัก, หรือผลไม้)',
+            'ไข่สำหรับทาหน้า',
+            'น้ำตาลสำหรับโรยหน้า (ถ้าเป็นพายหวาน)'
+        ]
+    },
+    'pizza': {
+        title: 'PIZZA',
+        ingredients: [
+            'แป้งพิซซ่า 200 กรัม',
+            'ซอสมะเขือเทศ',
+            'ชีสโมซาเรลล่า',
+            'ท็อปปิ้งตามชอบ (เช่น pepperoni, เห็ด, พริกหวาน)'
+        ]
+    }   
+};
+
+var modal = document.getElementById("recipeModal");
+var closeBtn = document.getElementsByClassName("close-btn")[0];
+
+function openModal(menuId) {
+    const data = recipeData[menuId];
+
+    if (!data) {
+        console.warn('ไม่พบเมนู:', menuId);
+        return;
+    }
+
+    document.getElementById("modal-title").innerText = data.title;
+    document.getElementById("modal-subtitle").innerText = "ส่วนผสม (Ingredients)";
+
+    const listElement = document.getElementById("modal-ingredients");
+    listElement.innerHTML = '';
+    data.ingredients.forEach(function(item) {
+        listElement.innerHTML += '<li>' + item + '</li>';
+    });
+
+    modal.style.display = "flex";
+}
+
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+</body>
+</html>
